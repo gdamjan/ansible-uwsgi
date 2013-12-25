@@ -5,10 +5,12 @@ galaxy_info:
   license: BSD
   min_ansible_version: 1.4
   platforms:
-  - name: Ubuntu
-    - saucy
-  - name: Debian
-    - wheezy
+    - name: Ubuntu
+      versions:
+      - saucy
+    - name: Debian
+      versions:
+      - wheezy
   categories:
-  - web
+    - web
 dependencies: []
