@@ -1,7 +1,8 @@
 uWSGI
 =====
 
-Installs or updates uWSGI. It'll also set the uWSGI emperor to run from a `@reboot` crontab entry.
+Installs or updates [uWSGI](http://uwsgi-docs.readthedocs.org/). It'll also set the uWSGI emperor to run from a `@reboot` crontab entry.
+
 The emperor will run a vassal for any `.ini` put in `/etc/uwsgi/vassals/`.
 
 
@@ -44,4 +45,3 @@ Damjan Georgievski
 
 [GitHub project page](https://github.com/gdamjan/ansible-uwsgi)
 
-[uWSGI documentation](http://uwsgi-docs.readthedocs.org/)
