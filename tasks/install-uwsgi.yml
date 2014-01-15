@@ -1,6 +1,6 @@
 ---
 - name: Getting uwsgi...
-  get_url: dest=/tmp/{{ uwsgi_version }}.tar.gz url={{ uwsgi_download_url }}/{{ uwsgi_version }}.tar.gz
+  get_url: dest=/tmp/{{ uwsgi_version }}.tar.gz url={{ uwsgi_download_url }}
   sudo: no
 
 - name: Unpacking uwsgi...
