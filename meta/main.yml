@@ -7,10 +7,15 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
+      - raring
       - saucy
+      - trusty
     - name: Debian
       versions:
       - wheezy
+    - name: CentOS
+      versions:
+      - 6.5
   categories:
     - web
 dependencies: []

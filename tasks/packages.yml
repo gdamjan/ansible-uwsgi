@@ -17,3 +17,24 @@
     - php5-dev
     - libcap-dev
     - liblua5.1-0-dev
+  when: ansible_os_family == "Debian"
+
+- name: Making sure uwsgi dependencies are installed from yum...
+  yum: name="{{ item }}" state=present
+  with_items:
+    - "@Development tools"
+    - openssl-devel
+    - oniguruma-devel
+    - libxml2-devel
+    - krb5-devel
+    - pcre-devel
+    - libdbi-devel
+    - python-devel
+    - libedit-devel
+    - gmp-devel
+    - bzip2-devel
+    - php-embedded
+    - php-devel
+    - lua-devel
+    - libcap-devel
+  when: ansible_os_family == "RedHat"

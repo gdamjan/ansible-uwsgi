@@ -16,11 +16,12 @@
   sudo: no
 
 - name: Building uwsgi...
-  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --build uwsgibuild
+  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2 uwsgiconfig.py --build uwsgibuild
   sudo: no
   environment:
-      UWSGICONFIG_RUBYPATH: ruby1.9.1
+      UWSGICONFIG_RUBYPATH: ruby
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
+      UWSGICONFIG_LUAPC: '{{ "lua5.1" if ansible_os_family == "Debian" else "lua" }}'
 
 - name: Making sure uwsgi plugin directory exists...
   file: state=directory path={{ uwsgi_lib_dir }} mode=0755
