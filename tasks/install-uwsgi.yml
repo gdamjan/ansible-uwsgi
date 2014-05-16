@@ -8,7 +8,7 @@
   sudo: no
 
 - name: Pushing uwsgi build config...
-  copy: src=uwsgibuild.ini dest=/tmp/uwsgi-{{ uwsgi_version }}/buildconf/uwsgibuild.ini
+  template: src=uwsgibuild.ini dest=/tmp/uwsgi-{{ uwsgi_version }}/buildconf/uwsgibuild.ini
   sudo: no
 
 - name: Pushing uwsgi embeded config...
