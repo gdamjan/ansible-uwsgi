@@ -24,7 +24,6 @@
   with_items:
     - "@Development tools"
     - openssl-devel
-    - oniguruma-devel
     - libxml2-devel
     - krb5-devel
     - pcre-devel
@@ -38,3 +37,11 @@
     - lua-devel
     - libcap-devel
   when: ansible_os_family == "RedHat"
+
+- name: RHEL/CentOS 7.x support for ruby
+  yum: name="{{ item }}" state=present
+  with_items:
+      - ruby
+      - ruby-devel
+  when: ansible_os_family == "RedHat" and ansible_distribution_version > "7"
+
