@@ -19,13 +19,13 @@ even for minor updates (it might be an issue with the uwsgi build process though
 Role Variables
 --------------
 
-The role uses 4 variables, that you can also override:
+The role uses 5 variables, that you can also override:
 
-* `uwsgi_version` - specifies the latest stable version of uWSGI
-* `uwsgi_tyrant_mode` - if True, uWSGI will run in Tyrant mode (False by default)
-* `uwsgi_lib_dir` - normally shouldn't be changed. The directory where plugins are installed.
-   It's `/usr/local/lib/uwsgi` by default.
-* `uwsgi_download_url` - normally shouldn't be changed. It's `https://github.com/unbit/uwsgi/archive` by default.
+* `uwsgi_install_method` - choose the way you want to install uWSGI: from `source` or using `pip`.
+* `uwsgi_version` - specifies the latest stable version of uWSGI. If you’re using the `pip` install method, you can specify `lts` to get the “Long Time Support” version.
+* `uwsgi_mode` - choose between `default`, `emperor` or `tyrant` method (refer to the uWSGI website for `emperor` or `tyrant` mode).
+* `uwsgi_lib_dir` - normally shouldn't be changed. The directory where plugins are installed. It's `/usr/local/lib/uwsgi` by default. (source install method)
+* `uwsgi_download_url` - normally shouldn't be changed. It's `https://github.com/unbit/uwsgi/archive` by default. (source install method)
 
 
 Usage

@@ -1,0 +1,32 @@
+---
+
+- name: Install dependencies from Apt repository (Debian OS-Like)
+  apt:
+    pkg: "{{ item }}"
+    state: "present"
+  with_items:
+    - build-essential
+    - python
+    - python-dev
+  when: ansible_os_family == "Debian"
+
+- name: Install dependencies from Yum (RedHat OS-Like)
+  yum:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - "@Development tools"
+    - python
+    - python-devel
+  when: ansible_os_family == "RedHat"
+
+- name: Install uWSGI using Python Pip repository
+  pip:
+    name: "uwsgi"
+    version: "{{ uwsgi_version }}"
+  when: uwsgi_version != 'lts'
+
+- name: Install uWSGI LTS using Pip
+  pip:
+    name: "http://projects.unbit.it/downloads/uwsgi-lts.tar.gz"
+  when: uwsgi_version == 'lts'
