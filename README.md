@@ -22,7 +22,7 @@ Role Variables
 The role uses 4 variables, that you can also override:
 
 * `uwsgi_version` - specifies the latest stable version of uWSGI
-* `uwsgi_tyrant_mode` - if True, uWSGI will run in Tyrant mode (False by default)
+* `uwsgi_mode` - choose between `default`, `emperor` or `tyrant` method (refer to the uWSGI website for `emperor` or `tyrant` mode).
 * `uwsgi_lib_dir` - normally shouldn't be changed. The directory where plugins are installed.
    It's `/usr/local/lib/uwsgi` by default.
 * `uwsgi_download_url` - normally shouldn't be changed. It's `https://github.com/unbit/uwsgi/archive` by default.
