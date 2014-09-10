@@ -16,7 +16,7 @@
   sudo: no
 
 - name: Building uwsgi...
-  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2 uwsgiconfig.py --build uwsgibuild
+  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --build uwsgibuild
   sudo: no
   environment:
       UWSGICONFIG_RUBYPATH: ruby

@@ -29,7 +29,7 @@
   notify: restart the uwsgi emperor
 
 - name: Create a separate directory for uwsgi log files
-  file: state=directory path=/var/log/uwsgi mode=0750 owner=root group=root
+  file: state=directory path=/var/log/uwsgi mode=0770 owner=root group=www-data
 
 - name: Setup crontab to run uwsgi emperor on reboot
   cron: name="run uwsgi emperor" special_time=reboot job="/usr/local/bin/uwsgi --ini /etc/uwsgi/emperor.ini"
