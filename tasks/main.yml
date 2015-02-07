@@ -3,7 +3,7 @@
 # one day that we have more up-to-date packages for Debian life will be much easier
 #
 
-- name: Checking for uwsgi version...
+- name: Checking for uwsgi version
   shell: "[ -x /usr/local/bin/uwsgi ] && /usr/local/bin/uwsgi --version || echo 0"
   ignore_errors: True
   register: cmdresult
@@ -18,13 +18,13 @@
 - include: install-uwsgi.yml
   when: "cmdresult.stdout.find(uwsgi_version) == -1"
 
-- name: Making sure uwsgi config directories are there...
+- name: Making sure uwsgi config directories are there
   file: path=/etc/{{ item }} state=directory mode=0755
   with_items:
-      - uwsgi
-      - uwsgi/vassals
+    - uwsgi
+    - uwsgi/vassals
 
-- name: Making sure there's uwsgi emperor configuration...
+- name: Making sure there's uwsgi emperor configuration
   template: src=emperor.ini dest=/etc/uwsgi/emperor.ini mode=0644 owner=root group=root
   notify: restart the uwsgi emperor
 
