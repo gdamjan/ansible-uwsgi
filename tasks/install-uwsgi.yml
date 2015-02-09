@@ -37,19 +37,15 @@
   sudo: no
   environment:
       UWSGI_PROFILE_OVERRIDE: "plugin_dir=."
-      UWSGICONFIG_RUBYPATH: ruby
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
       UWSGICONFIG_LUAPC: '{{ "lua5.1" if ansible_os_family == "Debian" else "lua" }}'
   with_items:
-    - rack
-    - rbthreads
-    - fiber
+    - php
     - lua
-    - cache
     - cgi
+    - cache
     - rpc
     - ugreen
-    - php
     - fastrouter
     - router_uwsgi
     - router_redirect
@@ -62,6 +58,7 @@
     - router_static
     - router_redis
     - sslrouter
+    - webdav
     - msgpack
     - transformation_chunked
     - transformation_gzip
@@ -69,6 +66,19 @@
     - transformation_template
     - transformation_tofile
     - transformation_toupper
+
+
+- name: Building other uwsgi plugins
+  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
+  sudo: no
+  environment:
+      UWSGI_PROFILE_OVERRIDE: "plugin_dir=."
+      UWSGICONFIG_RUBYPATH: ruby
+  with_items:
+    - rack
+    - rbthreads
+    - fiber
+  when: not (ansible_os_family == "RedHat" and ansible_lsb.major_release|int < 7)
 
 - name: Making sure uwsgi plugin directory exists...
   file: state=directory path={{ uwsgi_lib_dir }} mode=0755
