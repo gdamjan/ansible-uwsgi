@@ -10,9 +10,11 @@
     - libkrb5-dev
     - libpcre3-dev
     - libdb5.1-dev
-    - python2.7
     - python2.7-dev
-    - ruby1.9.1-dev
+    - python3-dev
+    - python3-greenlet
+    - python-greenlet-dev
+    - ruby-dev
     - libphp5-embed
     - php5-dev
     - libcap-dev
@@ -43,5 +45,5 @@
   with_items:
       - ruby
       - ruby-devel
-  when: ansible_os_family == "RedHat" and ansible_distribution_version > "7"
+  when: ansible_os_family == "RedHat" and ansible_lsb.major_release|int >= 7
 
