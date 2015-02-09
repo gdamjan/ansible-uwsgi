@@ -41,4 +41,7 @@
 
 - name: Setup systemd service file for the emperor
   copy: src=systemd.service dest=/etc/systemd/system/uwsgi.service mode=0644 owner=root group=root
-  when: (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 15) or (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8)
+  when: >
+      (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 15)
+      or (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8)
+      or (ansible_distribution == 'RedHat' and ansible_lsb.major_release|int >= 7)
