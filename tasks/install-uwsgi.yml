@@ -13,12 +13,12 @@
 
 - name: Building uwsgi...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --build uwsgibuild
+  environment: { UWSGI_PROFILE_OVERRIDE: "plugin_dir={{uwsgi_lib_dir}}" }
   sudo: no
 
 - name: Building python2 plugins...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}2
   sudo: no
-  environment: { UWSGI_PROFILE_OVERRIDE: "plugin_dir=." }
   with_items:
     - python
     - greenlet
@@ -27,7 +27,6 @@
 - name: Building python3 plugins...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
   sudo: no
-  environment: { UWSGI_PROFILE_OVERRIDE: "plugin_dir=." }
   with_items:
     - python
     - greenlet
@@ -36,7 +35,6 @@
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
   sudo: no
   environment:
-      UWSGI_PROFILE_OVERRIDE: "plugin_dir=."
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
       UWSGICONFIG_LUAPC: '{{ "lua5.1" if ansible_os_family == "Debian" else "lua" }}'
   with_items:
@@ -72,7 +70,6 @@
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
   sudo: no
   environment:
-      UWSGI_PROFILE_OVERRIDE: "plugin_dir=."
       UWSGICONFIG_RUBYPATH: ruby
   with_items:
     - rack
