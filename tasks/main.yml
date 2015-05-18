@@ -32,7 +32,7 @@
   file: state=directory path=/var/log/uwsgi mode=0770 owner=root group=www-data
 
 - name: Setup crontab to run uwsgi emperor on reboot
-  cron: name="run uwsgi emperor" special_time=reboot job="/usr/local/bin/uwsgi --ini /etc/uwsgi/emperor.ini"
+  cron: name="run uwsgi emperor" special_time=reboot job="/usr/local/bin/uwsgi --ini /etc/uwsgi/emperor.ini --daemonize /var/log/uwsgi/emperor.log"
   when: ansible_distribution == 'Debian' and ansible_lsb.major_release|int < 8
 
 - name: Setup upstart job for the emperor
