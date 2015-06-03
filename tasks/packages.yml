@@ -19,6 +19,7 @@
     - php5-dev
     - libcap-dev
     - liblua5.1-0-dev
+    - libattr1-dev
   when: ansible_os_family == "Debian"
 
 - name: Making sure uwsgi dependencies are installed from yum...
