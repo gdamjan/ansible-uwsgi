@@ -29,7 +29,15 @@
   sudo: no
   with_items:
     - python
+
+- name: Building python3 greenlet...
+  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
+  sudo: no
+  with_items:
     - greenlet
+  when: >
+      (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 14)
+      or (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8)
 
 - name: Building other uwsgi plugins
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}

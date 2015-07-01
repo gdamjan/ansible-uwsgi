@@ -12,7 +12,6 @@
     - libdb5.1-dev
     - python2.7-dev
     - python3-dev
-    - python3-greenlet
     - python-greenlet-dev
     - ruby-dev
     - libphp5-embed
@@ -21,6 +20,14 @@
     - liblua5.1-0-dev
     - libattr1-dev
   when: ansible_os_family == "Debian"
+
+- name: Python3 greenlet on Debian 8.x and Ubuntu 14.x
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python3-greenlet
+  when: >
+      (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 14)
+      or (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8)
 
 - name: Making sure uwsgi dependencies are installed from yum...
   yum: name="{{ item }}" state=present
