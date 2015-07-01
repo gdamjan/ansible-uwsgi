@@ -7,15 +7,14 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-      - raring
-      - saucy
       - trusty
+      - vivid
     - name: Debian
       versions:
       - wheezy
+      - jessie
     - name: EL
       versions:
-      - 6
       - 7
   categories:
     - web
