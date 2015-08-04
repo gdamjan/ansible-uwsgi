@@ -9,7 +9,7 @@
     - libxml2-dev
     - libkrb5-dev
     - libpcre3-dev
-    - libdb5.1-dev
+    - libdb-dev
     - python2.7-dev
     - python3-dev
     - python-greenlet-dev
