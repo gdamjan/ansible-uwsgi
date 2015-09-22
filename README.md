@@ -33,7 +33,7 @@ Usage
 
     ansible-galaxy install gdamjan.uwsgi
 
-Also check the [Ansible Galaxy](https://galaxy.ansibleworks.com/intro) about page.
+Also check the [Ansible Galaxy](https://galaxy.ansible.com/intro) about page.
 
 
 License
