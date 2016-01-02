@@ -13,6 +13,7 @@
     - python2.7-dev
     - python3-dev
     - python-greenlet-dev
+    - ruby
     - ruby-dev
     - libphp5-embed
     - php5-dev
