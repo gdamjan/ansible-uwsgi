@@ -1,24 +1,24 @@
 ---
 - name: Getting uwsgi...
   get_url: dest=/tmp/{{ uwsgi_version }}.tar.gz url={{ uwsgi_download_url }}
-  sudo: no
+  become: false
 
 - name: Unpacking uwsgi...
   command: chdir=/tmp /bin/tar xvf {{ uwsgi_version }}.tar.gz creates=/tmp/uwsgi-{{ uwsgi_version }}
-  sudo: no
+  become: false
 
 - name: Pushing uwsgi build configs...
   template: src=uwsgibuild.ini dest=/tmp/uwsgi-{{ uwsgi_version }}/buildconf/uwsgibuild.ini
-  sudo: no
+  become: false
 
 - name: Building uwsgi...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --build uwsgibuild
   environment: { UWSGI_PROFILE_OVERRIDE: "plugin_dir={{uwsgi_lib_dir}}" }
-  sudo: no
+  become: false
 
 - name: Building python2 plugins...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}2
-  sudo: no
+  become: false
   with_items:
     - python
     - greenlet
@@ -26,13 +26,13 @@
 
 - name: Building python3 plugins...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
-  sudo: no
+  become: false
   with_items:
     - python
 
 - name: Building python3 greenlet...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
-  sudo: no
+  become: false
   with_items:
     - greenlet
   when: >
@@ -41,7 +41,7 @@
 
 - name: Building other uwsgi plugins
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
-  sudo: no
+  become: false
   environment:
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
       UWSGICONFIG_LUAPC: '{{ "lua5.1" if ansible_os_family == "Debian" else "lua" }}'
@@ -76,7 +76,7 @@
 
 - name: Building other uwsgi plugins
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
-  sudo: no
+  become: false
   environment:
       UWSGICONFIG_RUBYPATH: ruby
   with_items:
