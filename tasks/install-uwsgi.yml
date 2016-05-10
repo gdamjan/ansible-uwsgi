@@ -29,6 +29,7 @@
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
   become: false
   with_items:
+    - gevent
     - greenlet
   when: >
       (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 14)
@@ -39,7 +40,7 @@
   become: false
   environment:
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
-      UWSGICONFIG_LUAPC: '{{ "lua5.1" if ansible_os_family == "Debian" else "lua" }}'
+      UWSGICONFIG_LUAPC: '{{ "lua5.3" if ansible_os_family == "Debian" else "lua" }}'
   with_items:
     - php
     - lua

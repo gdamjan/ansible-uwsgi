@@ -7,11 +7,9 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-      - trusty
-      - vivid
+      - xenial
     - name: Debian
       versions:
-      - wheezy
       - jessie
     - name: EL
       versions:
