@@ -12,9 +12,6 @@ Requirements
 The role is created for Debian, Ubuntu and CentOS/RHEL 6.5/7.x. The role will also install `build-essential` and some `-dev`
 packages that it needs to compile uWSGI. Ruby/Rack support is not available on CentOS/RHEL-6.x, but is on 7.x releases.
 
-I suggest the use of the [dotdeb repo](http://www.dotdeb.org/) on Debian wheezy for the PHP packages. The Debian package changes the `.so` file name
-even for minor updates (it might be an issue with the uwsgi build process though).
-
 
 Role Variables
 --------------
