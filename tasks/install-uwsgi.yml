@@ -1,10 +1,6 @@
 ---
-- name: Getting uwsgi...
-  get_url: dest=/tmp/{{ uwsgi_version }}.tar.gz url={{ uwsgi_download_url }}
-  become: false
-
 - name: Unpacking uwsgi...
-  command: chdir=/tmp /bin/tar xvf {{ uwsgi_version }}.tar.gz creates=/tmp/uwsgi-{{ uwsgi_version }}
+  unarchive: src={{ uwsgi_download_url }} dest=/tmp copy=no
   become: false
 
 - name: Pushing uwsgi build configs...
@@ -13,7 +9,6 @@
 
 - name: Building uwsgi...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --build uwsgibuild
-  environment: { UWSGI_PROFILE_OVERRIDE: "plugin_dir={{uwsgi_lib_dir}}" }
   become: false
 
 - name: Building python2 plugins...
