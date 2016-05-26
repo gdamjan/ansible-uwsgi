@@ -31,17 +31,14 @@
 - name: Create a separate directory for uwsgi log files
   file: state=directory path=/var/log/uwsgi mode=0770 owner=root group=www-data
 
-- name: Setup crontab to run uwsgi emperor on reboot
-  cron: name="run uwsgi emperor" special_time=reboot job="/usr/local/bin/uwsgi --ini /etc/uwsgi/emperor.ini --daemonize /var/log/uwsgi/emperor.log"
-  when: ansible_distribution == 'Debian' and ansible_lsb.major_release|int < 8
-
 - name: Setup upstart job for the emperor
   copy: src=upstart.conf dest=/etc/init/uwsgi.conf mode=0644 owner=root group=root
-  when: ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int < 15
+  when: ansible_service_mgr == 'upstart'
 
 - name: Setup systemd service file for the emperor
   copy: src=systemd.service dest=/etc/systemd/system/uwsgi.service mode=0644 owner=root group=root
-  when: >
-      (ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int >= 15)
-      or (ansible_distribution == 'Debian' and ansible_lsb.major_release|int >= 8)
-      or (ansible_distribution == 'RedHat' and ansible_lsb.major_release|int >= 7)
+  when: ansible_service_mgr == 'systemd'
+
+- name: Setup crontab to run uwsgi emperor on reboot
+  cron: name="run uwsgi emperor" special_time=reboot job="/usr/local/bin/uwsgi --ini /etc/uwsgi/emperor.ini --daemonize /var/log/uwsgi/emperor.log"
+  when: ansible_service_mgr not in ['upstart', 'systemd']
