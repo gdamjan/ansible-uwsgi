@@ -1,20 +1,51 @@
 ---
-- hosts: localhost
+- name: create containers
+  hosts: localhost
+  gather_facts: false
   vars:
     dockers:
-      - name: ubuntu
-        image: ubuntu:16.04
+        - "ubuntu:16.04"
+#      - ubuntu:14.04
+#      - debian:8
+#      - debian:7
+#      - centos:7
+#      - centos:6
   tasks:
-    - name: docker images
-      docker:
-        name: "{{ item.name }}"
-        image: "{{ item.image }}"
-        state: present
-      with_items: dockers
+    - name: get docker images and start containers
+      docker_container:
+        name: '{{ item | to_uuid }}'
+        image: '{{ item }}'
+        command: /bin/sleep infinity
+        pull: true
+      with_items: '{{dockers}}'
 
-- hosts: ubuntu
-  connection: docker
+    - add_host: group=dockers name='{{ item | to_uuid }}' ansible_connection=docker ansible_user=root
+      with_items: '{{dockers}}'
+
+- name: botstrap containers with python
+  hosts: dockers
+  gather_facts: false
+  tasks:
+    - name: try apt-get update
+      raw: apt-get update
+      ignore_errors: true
+    - name: try apt-get install python
+      raw: apt-get -y install python
+      ignore_errors: true
+    - name: or try yum install
+      raw: yum install python
+      ignore_errors: true
+
+- hosts: dockers
   roles:
     - uwsgi
 
-
+- name: shutdown containers
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: docker images
+      docker_container:
+        name: '{{ item }}'
+        state: stopped
+      with_items: '{{ groups["dockers"] }}'
