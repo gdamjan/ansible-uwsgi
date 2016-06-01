@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+language: python
+python:
+  - "2.7"
+
+before_install:
+  - pip install ansible docker-py
+
+script:
+  - cd test
+  - pwd
