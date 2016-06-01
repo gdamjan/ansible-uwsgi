@@ -13,3 +13,6 @@ before_install:
 script:
   - cd test
   - pwd
+  - ansible --version
+  - id
+  - sudo id
