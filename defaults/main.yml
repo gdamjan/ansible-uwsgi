@@ -1,5 +1,5 @@
 ---
 uwsgi_version: "2.0.13.1"
-uwsgi_download_url: "https://github.com/unbit/uwsgi/archive/{{ uwsgi_version }}.tar.gz"
+uwsgi_download_url: "http://projects.unbit.it/downloads/uwsgi-{{ uwsgi_version }}.tar.gz"
 uwsgi_tyrant_mode: false
 uwsgi_lib_dir: "/usr/local/lib/uwsgi"
