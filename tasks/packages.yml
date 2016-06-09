@@ -18,7 +18,7 @@
     - libphp*-embed
     - php*-dev
     - libcap-dev
-    - liblua5.3-dev
+    - liblua5*-dev
     - libattr1-dev
   when: ansible_os_family == "Debian"
 

@@ -12,7 +12,7 @@
   become: false
 
 - name: Building python2 plugins...
-  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}2
+  shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python2.7 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}2
   become: false
   with_items:
     - python
@@ -24,6 +24,7 @@
   become: false
   with_items:
     - python
+    - asyncio
 
 - name: Building python3 greenlet...
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python3 uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}3
@@ -40,35 +41,9 @@
   become: false
   environment:
       UWSGICONFIG_PHPLIBDIR: /usr/lib/php5
-      UWSGICONFIG_LUAPC: '{{ "lua5.3" if ansible_os_family == "Debian" else "lua" }}'
   with_items:
     - php
     - lua
-    - cgi
-    - cache
-    - rpc
-    - ugreen
-    - fastrouter
-    - router_uwsgi
-    - router_redirect
-    - router_basicauth
-    - zergpool
-    - router_rewrite
-    - router_http
-    - router_cache
-    - rawrouter
-    - router_static
-    - router_redis
-    - sslrouter
-    - webdav
-    - msgpack
-    - transformation_chunked
-    - transformation_gzip
-    - transformation_offload
-    - transformation_template
-    - transformation_tofile
-    - transformation_toupper
-
 
 - name: Building other uwsgi plugins
   shell: chdir=/tmp/uwsgi-{{ uwsgi_version }} python uwsgiconfig.py --plugin plugins/{{item}} uwsgibuild {{item}}
