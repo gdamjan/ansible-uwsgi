@@ -8,14 +8,14 @@
   ignore_errors: True
   register: cmdresult
   changed_when: "cmdresult.stdout.find(uwsgi_version) == -1"
-  always_run: yes
+  # check_mode: ???
 
 #- debug: msg="Found uwsgi version {{ cmdresult.stdout }}. Needed {{ uwsgi_version }}"
 
-- include: packages.yml
+- import_tasks: packages.yml
   when: "cmdresult.stdout.find(uwsgi_version) == -1"
 
-- include: install-uwsgi.yml
+- import_tasks: install-uwsgi.yml
   when: "cmdresult.stdout.find(uwsgi_version) == -1"
 
 - name: Making sure uwsgi config directories are there
